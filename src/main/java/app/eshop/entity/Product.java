@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -11,21 +14,18 @@ import lombok.NoArgsConstructor;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Getter
+    @Setter
+    private Long id;
 
     @Getter
+    @Setter
     private String name;
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "id")
+    @Getter
+    @Setter
+    private Set<CustomerOrder_Product> productInCustomerOrders;
 
 }
