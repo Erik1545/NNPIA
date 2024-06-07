@@ -8,4 +8,8 @@ public class AddProductDTO {
     @Getter
     @Setter
     private String productName;
+
+    @Getter
+    @Setter
+    private Long id;
 }

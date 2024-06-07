@@ -6,11 +6,11 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 <body>
-<h2>List produktů</h2>
+<h2>Detail produktu</h2>
 <section>
-    <div th:each="product:${products}">
-        <h4 th:text="${product.productName}"></h4>
-    </div>
+        <h3 th:text="${product.productName}"/>
+
+
 </section>
 </body>
 </html>

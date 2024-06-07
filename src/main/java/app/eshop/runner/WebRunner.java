@@ -7,7 +7,6 @@ import app.eshop.entity.Product;
 import app.eshop.repository.CustomerOrderRepository;
 import app.eshop.repository.CustomerOrder_ProductRepository;
 import app.eshop.repository.ProductRepository;
-import jakarta.persistence.criteria.Order;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -33,12 +32,25 @@ public class WebRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         Product product1 = new Product();
-        product1.setName("Erik");
+        product1.setProductName("Iron-man");
 
         Product product2 = new Product();
-        product2.setName("Petr");
+        product2.setProductName("Spiderman");
+
+        Product product3 = new Product();
+        product3.setProductName("Black-Widow");
+
+        Product product4 = new Product();
+        product4.setProductName("Kapitan-Amerika");
+
+        Product product5 = new Product();
+        product5.setProductName("Groot");
+
         productRepository.save(product1);
         productRepository.save(product2);
+        productRepository.save(product3);
+        productRepository.save(product4);
+        productRepository.save(product5);
 
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setState(CustomerOrderStateEnum.NEW);

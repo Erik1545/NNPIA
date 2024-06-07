@@ -8,7 +8,8 @@
 <body>
 <h2>Formular pro pridani produktu</h2>
 <section>
-    <form action="#" th:action="@{/addproductaccepted}" th:object="${addNewProduct}" method="post">
+    <form action="#" method="post" th:action="@{/addproductaccepted}" th:object="${addNewProduct}">
+        <input type="hidden" th:field="*{id}">
         <input type="text" th:field="*{productName}"/>
         <input type="submit"/>
     </form>
