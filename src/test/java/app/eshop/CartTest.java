@@ -4,8 +4,6 @@ package app.eshop;
 import app.eshop.entity.Product;
 import app.eshop.repository.ProductRepository;
 import app.eshop.service.CartService;
-import app.eshop.service.CartServiceImpl;
-import static org.assertj.core.api.Assertions.*;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,11 +21,37 @@ class CartTest {
     @Autowired
     private CartService cartService;
 
+
     @Test
-    void addAndRemoceItemsFromCart(){
+    void addProductToCart(){
+        List<Product> productList = productRepository.findAll();
+        Long productId = productList.get(3).getId();
+        cartService.addToCart(productId);
+
+        Assertions.assertThat(cartService.getCart().size()).isEqualTo(1);
+    }
+
+    @Test
+    void removeProductsFromCart(){
+        List<Product> productList = productRepository.findAll();
+        Long productId = productList.get(3).getId();
+        cartService.addToCart(productId);
+        cartService.addToCart(productId);
+        cartService.addToCart(productId);
+        Assertions.assertThat(cartService.getCart().containsKey(productList.get(3))).isTrue();
+
+        cartService.removeFromCart(productId);
+        cartService.removeFromCart(productId);
+        cartService.removeFromCart(productId);
+        Assertions.assertThat(cartService.getCart().containsKey(productList.get(3))).isFalse();
+
+
+    }
+
+    @Test
+    void addAndRemoveProducts(){
 
         List<Product> productList = productRepository.findAll();
-
         Long productId = productList.get(3).getId();
 
         cartService.addToCart(productId);
@@ -44,7 +68,6 @@ class CartTest {
 
         cartService.removeFromCart(productId);
         Assertions.assertThat(cartService.getCart().get(productList.get(3))).isEqualTo(2);
-
 
     }
 }

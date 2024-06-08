@@ -7,6 +7,7 @@
 </head>
 <body>
 <h2>Formular pro pridani produktu</h2>
+<div th:replace="navbar ::nav"></div>
 <section>
     <form action="#" method="post" th:action="@{/addproductaccepted}" th:object="${addNewProduct}">
         <input type="hidden" th:field="*{id}">

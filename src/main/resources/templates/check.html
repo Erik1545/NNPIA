@@ -6,15 +6,10 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 <body>
-<h2>List produktů</h2>
+<h2>Check</h2>
 <div th:replace="navbar ::nav"></div>
 <section>
-    <div th:each="product:${products}">
-        <h4 th:text="${product.productName}"></h4>
-
-        <a th:href="@{'/cart/add/' + ${product.getId()}}">Add</a>
-        <a th:href="@{'/cart/remove/' + ${product.getId()}}">Remove</a>
-    </div>
+    <h3>Hotovo</h3>
 </section>
 </body>
 </html>
