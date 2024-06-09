@@ -7,11 +7,13 @@ import app.eshop.entity.Product;
 import app.eshop.repository.CustomerOrderRepository;
 import app.eshop.repository.CustomerOrder_ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.Map;
 
 
 @Service
+@SessionScope
 public class CustomerOrderServiceImpl implements CustomerOrderService{
 
     private final CustomerOrderRepository customerOrderRepository;

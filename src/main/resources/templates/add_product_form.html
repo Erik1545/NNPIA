@@ -9,9 +9,13 @@
 <h2>Formular pro pridani produktu</h2>
 <div th:replace="navbar ::nav"></div>
 <section>
-    <form action="#" method="post" th:action="@{/addproductaccepted}" th:object="${addNewProduct}">
+    <form action="#" method="post" th:action="@{/addproductaccepted}" th:object="${addNewProduct}" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
         <input type="text" th:field="*{productName}"/>
+        <textarea th:field="*{description}"></textarea>
+        <input type="file" th:field="*{image}">
+
+
         <input type="submit"/>
     </form>
 

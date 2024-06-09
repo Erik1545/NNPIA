@@ -1,10 +1,7 @@
 package app.eshop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Objects;
 import java.util.Set;
@@ -12,6 +9,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +17,18 @@ public class Product {
     @Setter
     private Long id;
 
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
+    @Getter
+    @Setter
     private String productName;
 
+    @Getter
+    @Setter
+    @Column(columnDefinition = "text")
+    private String description;
+
+    @Getter
+    @Setter
+    private String imagePath;
 
     @OneToMany(mappedBy = "id")
     @Getter

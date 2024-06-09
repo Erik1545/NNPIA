@@ -4,6 +4,7 @@ package app.eshop.controller;
 import app.eshop.dto.AddProductDTO;
 import app.eshop.entity.Product;
 import app.eshop.repository.ProductRepository;
+import app.eshop.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private FileService fileService;
 
     @ExceptionHandler(RuntimeException.class)
     public String handleError(Model model){
@@ -33,7 +37,14 @@ public class ProductController {
     public String addProduct(@PathVariable(required = false) Long id, Model model){
         if(id != null){
             Product findById = productRepository.findById(id).orElse(new Product());
-            model.addAttribute("addNewProduct", findById);
+
+            AddProductDTO addProductDTO = new AddProductDTO();
+            addProductDTO.setId(findById.getId());
+            addProductDTO.setProductName(findById.getProductName());
+            addProductDTO.setDescription(findById.getDescription());
+
+
+            model.addAttribute("addNewProduct", addProductDTO);
             return "add_product_form";
         }
         else {
@@ -48,13 +59,17 @@ public class ProductController {
         Product addNewProduct = new Product();
         addNewProduct.setId(addProductDTO.getId());
         addNewProduct.setProductName(addProductDTO.getProductName());
+        addNewProduct.setDescription(addProductDTO.getDescription());
+
+        String imageName = fileService.upload(addProductDTO.getImage());
+        addNewProduct.setImagePath(imageName);
         productRepository.save(addNewProduct);
         return "redirect:/";
     }
 
-    @GetMapping("/productdetail/{id}")
+    @GetMapping("/detail/{id}")
     public String displayDetails(@PathVariable(required = false) Long id, Model model){
         model.addAttribute("product", productRepository.findById(id).get());
-        return "product_detail";
+        return "detail";
     }
 }
