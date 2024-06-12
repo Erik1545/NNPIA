@@ -20,7 +20,6 @@ public class ImageConfiguration implements WebMvcConfigurer {
         Path imagesDir = Paths.get("images").toAbsolutePath();
 
         String imagesDirUri = imagesDir.toUri().toString();
-        System.out.println(imagesDirUri);
         registry.addResourceHandler("/images/**")
                 .addResourceLocations(imagesDirUri);
     }
