@@ -33,18 +33,28 @@ public class WebRunner implements ApplicationRunner {
 
         Product product1 = new Product();
         product1.setProductName("Iron-man");
+        product1.setImagePath("monkey.jpg");
+        product1.setPrice(56);
 
         Product product2 = new Product();
         product2.setProductName("Spiderman");
+        product2.setImagePath("troll.png");
+        product2.setPrice(55);
 
         Product product3 = new Product();
         product3.setProductName("Black-Widow");
+        product3.setImagePath("zlobr.jpg");
+        product3.setPrice(24);
 
         Product product4 = new Product();
         product4.setProductName("Kapitan-Amerika");
+        product4.setImagePath("zlobr.jpg");
+        product4.setPrice(57);
 
         Product product5 = new Product();
         product5.setProductName("Groot");
+        product5.setImagePath("monkey.jpg");
+        product5.setPrice(13);
 
         productRepository.save(product1);
         productRepository.save(product2);

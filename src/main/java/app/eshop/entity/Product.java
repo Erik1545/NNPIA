@@ -28,6 +28,10 @@ public class Product {
 
     @Getter
     @Setter
+    private Integer price;
+
+    @Getter
+    @Setter
     private String imagePath;
 
     @OneToMany(mappedBy = "id")

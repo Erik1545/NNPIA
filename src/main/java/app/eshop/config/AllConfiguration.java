@@ -2,6 +2,7 @@ package app.eshop.config;
 
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,7 +12,7 @@ import java.nio.file.Paths;
 
 @Configuration
 @EnableWebMvc
-public class ImageConfiguration implements WebMvcConfigurer {
+public class AllConfiguration implements WebMvcConfigurer {
 
 
     @Override
@@ -22,6 +23,10 @@ public class ImageConfiguration implements WebMvcConfigurer {
         String imagesDirUri = imagesDir.toUri().toString();
         registry.addResourceHandler("/images/**")
                 .addResourceLocations(imagesDirUri);
+    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowCredentials(true).allowedOriginPatterns("*").allowedHeaders("*").allowedMethods("*");
     }
 
 

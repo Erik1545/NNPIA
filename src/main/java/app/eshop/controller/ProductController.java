@@ -1,20 +1,20 @@
 package app.eshop.controller;
 
 
-import app.eshop.dto.AddProductDTO;
+import app.eshop.dto.ProductDTO;
+import app.eshop.dto.ServerProductDTO;
 import app.eshop.entity.Product;
 import app.eshop.repository.ProductRepository;
 import app.eshop.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-//@Controller
+@RequestMapping("/api/products")
 public class ProductController {
 
     @Autowired
@@ -24,15 +24,62 @@ public class ProductController {
     private FileService fileService;
 
     @ExceptionHandler(RuntimeException.class)
-    public String handleError(Model model){
-        return "error";
+    public HttpStatus handleError(){
+        return HttpStatus.NOT_FOUND;
     }
 
     @GetMapping("/")
-    public String getAllProducts(Model model){
-        model.addAttribute("products", productRepository.findAll());
-        return "index";
+    public List<ServerProductDTO> getAllProducts() {
+        return productRepository.findAll().stream().map(product -> new ServerProductDTO(product.getId(), product.getProductName(), product.getDescription(), product.getImagePath(), product.getPrice())).toList();
     }
+
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Long id) {
+        return productRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    @PostMapping("/")
+    public Product createProduct(@RequestBody ProductDTO productDTO) {
+        Product newProduct = new Product();
+        newProduct.setProductName(productDTO.getProductName());
+        newProduct.setDescription(productDTO.getDescription());
+        newProduct.setPrice(productDTO.getPrice());
+
+        String imageName = fileService.upload(productDTO.getImage());
+        newProduct.setImagePath(imageName);
+
+        Product savedProduct = productRepository.save(newProduct);
+        return savedProduct;
+    }
+
+
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+        return productRepository.findById(id).map(existingProduct -> {
+            existingProduct.setProductName(productDTO.getProductName());
+            existingProduct.setDescription(productDTO.getDescription());
+            existingProduct.setPrice(productDTO.getPrice());
+
+            if (productDTO.getImage() != null) {
+                String imageName = fileService.upload(productDTO.getImage());
+                existingProduct.setImagePath(imageName);
+            }
+
+            return productRepository.save(existingProduct);
+        }).orElseThrow(RuntimeException::new);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+
+        productRepository.delete(product);
+    }
+
+    /*
+
+
 
     @GetMapping(value={"/addproduct","/addproduct/{id}"})
     public String addProduct(@PathVariable(required = false) Long id, Model model){
@@ -74,13 +121,7 @@ public class ProductController {
         return "detail";
     }
 
-    @GetMapping("/tryjson")
-    public List<String> allProducts(){
-        return productRepository.findAll().stream().map(Product::getProductName).toList();
-    }
+     */
 
-    @PostMapping("/tryjson")
-    public Product createProduct(@RequestBody Product product){
-        return productRepository.save(product);
-    }
+
 }

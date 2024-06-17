@@ -1,24 +1,21 @@
 package app.eshop.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-public class AddProductDTO {
+@Getter
+@Setter
+@AllArgsConstructor
 
-    @Getter
-    @Setter
+public class ProductDTO {
+
     private String productName;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     private MultipartFile image;
 
-    @Getter
-    @Setter
-    private Long id;
+    private Integer price;
 }
