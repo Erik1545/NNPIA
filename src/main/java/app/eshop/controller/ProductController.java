@@ -28,6 +28,7 @@ public class ProductController {
         return HttpStatus.NOT_FOUND;
     }
 
+
     @GetMapping("/")
     public List<ServerProductDTO> getAllProducts() {
         return productRepository.findAll().stream().map(product -> new ServerProductDTO(product.getId(), product.getProductName(), product.getDescription(), product.getImagePath(), product.getPrice())).toList();
@@ -39,14 +40,16 @@ public class ProductController {
     }
 
     @PostMapping("/")
-    public Product createProduct(@RequestBody ProductDTO productDTO) {
+    public Product createProduct(@ModelAttribute ProductDTO productDTO) {
         Product newProduct = new Product();
         newProduct.setProductName(productDTO.getProductName());
         newProduct.setDescription(productDTO.getDescription());
         newProduct.setPrice(productDTO.getPrice());
 
-        String imageName = fileService.upload(productDTO.getImage());
-        newProduct.setImagePath(imageName);
+        if (productDTO.getImage() != null) {
+            String imageName = fileService.upload(productDTO.getImage());
+            newProduct.setImagePath(imageName);
+        }
 
         Product savedProduct = productRepository.save(newProduct);
         return savedProduct;
@@ -54,7 +57,7 @@ public class ProductController {
 
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    public Product updateProduct(@PathVariable Long id, @ModelAttribute ProductDTO productDTO) {
         return productRepository.findById(id).map(existingProduct -> {
             existingProduct.setProductName(productDTO.getProductName());
             existingProduct.setDescription(productDTO.getDescription());
@@ -76,44 +79,7 @@ public class ProductController {
 
         productRepository.delete(product);
     }
-
-    /*
-
-
-
-    @GetMapping(value={"/addproduct","/addproduct/{id}"})
-    public String addProduct(@PathVariable(required = false) Long id, Model model){
-        if(id != null){
-            Product findById = productRepository.findById(id).orElse(new Product());
-
-            AddProductDTO addProductDTO = new AddProductDTO();
-            addProductDTO.setId(findById.getId());
-            addProductDTO.setProductName(findById.getProductName());
-            addProductDTO.setDescription(findById.getDescription());
-
-
-            model.addAttribute("addNewProduct", addProductDTO);
-            return "add_product_form";
-        }
-        else {
-            model.addAttribute("addNewProduct", new AddProductDTO());
-            return "add_product_form";
-        }
-
-    }
-
-    @PostMapping("/addproductaccepted")
-    public String addProductAccepted(AddProductDTO addProductDTO, Model model){
-        Product addNewProduct = new Product();
-        addNewProduct.setId(addProductDTO.getId());
-        addNewProduct.setProductName(addProductDTO.getProductName());
-        addNewProduct.setDescription(addProductDTO.getDescription());
-
-        String imageName = fileService.upload(addProductDTO.getImage());
-        addNewProduct.setImagePath(imageName);
-        productRepository.save(addNewProduct);
-        return "redirect:/";
-    }
+/*
 
     @GetMapping("/detail/{id}")
     public String displayDetails(@PathVariable(required = false) Long id, Model model){

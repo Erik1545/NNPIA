@@ -42,9 +42,7 @@ function App() {
     });
   }
 
-  function handleAddProduct(newProduct) {
-    setProducts([...products, newProduct]);
-  }
+
 
   return (
     <Router>
@@ -61,7 +59,7 @@ function App() {
               </div>
             </>
           } />
-          <Route path="/productform" element={<ProductForm onAddProduct={handleAddProduct} />} />
+          <Route path="/productform" element={<ProductForm />} />
           <Route path="/cart" element={
             <>
               <p>Kosik</p>

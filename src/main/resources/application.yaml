@@ -12,4 +12,7 @@ spring:
     database: postgresql
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  servlet:
+    multipart:
+      enabled: true
 
