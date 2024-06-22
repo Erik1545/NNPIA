@@ -1,5 +1,6 @@
 package app.eshop.service;
 
+import app.eshop.dto.CartProductDTO;
 import app.eshop.entity.CustomerOrder;
 import app.eshop.entity.CustomerOrderStateEnum;
 import app.eshop.entity.CustomerOrder_Product;
@@ -34,11 +35,11 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
         customerOrderRepository.save(customerOrder);
 
 
-        for (Map.Entry<Product, Integer> entry : cartService.getCart().entrySet()) {
+        for (CartProductDTO entry : cartService.getCart()) {
             CustomerOrder_Product customerOrder_product = new CustomerOrder_Product();
             customerOrder_product.setCustomerOrder(customerOrder);
-            customerOrder_product.setProduct(entry.getKey());
-            customerOrder_product.setQuantity(entry.getValue());
+            customerOrder_product.setProduct(entry.getProduct());
+            customerOrder_product.setQuantity(entry.getQuantity());
             customerOrder_productRepository.save(customerOrder_product);
 
         }

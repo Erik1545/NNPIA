@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './product.css';
-import {useState} from 'react'
 
-function Product({product, onBuy }) {
+function Product({product}) {
 
-  const [isInCart, setIsInCart] = useState(false)
   return (
-     <div className="product-container" style={{margin: "10px", padding: "25px"}}>
-          <h2 className="product-name">{product.productName}</h2>
-          <img src={`http://localhost:8080/images/${product.image}`} alt={product.productName} className="product-image" />
-          <p className="product-price">{product.price} Kč</p>
-          <div>{isInCart && "V kosiku"}</div>
-
-          <button className="product-button" onClick={() => {onBuy(product); setIsInCart(true)}}>Buy</button>
-     </div>
+    <div className="product-container" style={{ margin: "10px", padding: "25px" }}>
+      <h2 className="product-name">{product.productName}</h2>
+      <img src={`http://localhost:8080/images/${product.image}`} alt={product.productName} className="product-image" />
+      <p className="product-price">{product.price} Kč</p>
+      <Link to={`/detail/${product.id}`}>
+        <button className="product-button">Detail</button>
+      </Link>
+    </div>
   );
 }
 

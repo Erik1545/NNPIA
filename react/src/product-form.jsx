@@ -1,35 +1,60 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import './product-form.css';
 
 function ProductForm() {
+  const { id } = useParams();
+  const isNewProduct = !id;
   const [product, setProduct] = useState({
     productName: '',
     description: '',
     price: '',
     image: null
   });
-function handleAddProduct() {
-  const formData = new FormData();
-  formData.append('productName', product.productName);
-  formData.append('description', product.description);
-  formData.append('price', product.price);
-  formData.append('image', product.image);
 
-  const requestOptions = {
-    method: 'POST',
-    body: formData,
-  };
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:8080/api/products/${id}`)
+        .then(response => response.json())
+        .then(data => {
+          setProduct({
+            productName: data.productName,
+            description: data.description || '',
+            price: data.price.toString(),
+            image: data.image || null
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching product:', error);
+        });
+    }
+  }, [id]);
 
-  fetch('http://localhost:8080/api/products/', requestOptions)
-    .then(response => response.json())
-    .then(json => {
-      console.log('Response from POST request:', json);
-    })
-    .catch(error => {
-      console.error('Error sending POST request:', error);
-    });
-}
+  function handleSaveProduct() {
+    const formData = new FormData();
+    formData.append('productName', product.productName);
+    formData.append('description', product.description);
+    formData.append('price', product.price);
 
+    const requestOptions = {
+      method: isNewProduct ? 'POST' : 'PUT',
+      body: formData,
+    };
+
+    let url = 'http://localhost:8080/api/products';
+    if (!isNewProduct) {
+      url += `/${id}`;
+    }
+
+    fetch(url, requestOptions)
+      .then(response => response.json())
+      .then(json => {
+        console.log('Response from ' + (isNewProduct ? 'POST' : 'PUT') + ' request:', json);
+      })
+      .catch(error => {
+        console.error('Error sending ' + (isNewProduct ? 'POST' : 'PUT') + ' request:', error);
+      });
+  }
 
   function handleChange(event) {
     const { name, value, files } = event.target;
@@ -50,7 +75,7 @@ function handleAddProduct() {
   function handleSubmit(event) {
     event.preventDefault();
 
-    handleAddProduct();
+    handleSaveProduct();
 
     setProduct({
       productName: '',
@@ -92,9 +117,8 @@ function handleAddProduct() {
           name="image"
           accept="image/*"
           onChange={handleChange}
-          required
         />
-        <button type="submit">Přidat nový produkt</button>
+        <button type="submit">{isNewProduct ? 'Přidat nový produkt' : 'Uložit změny'}</button>
       </form>
     </div>
   );

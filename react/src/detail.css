@@ -1,7 +1,6 @@
-/* product-form.css */
 
-.form-container {
-    max-width: 600px;
+.detail-container {
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -10,25 +9,30 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.form-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.detail-container h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-.form-container input[type="text"],
-.form-container input[type="number"],
-.form-container input[type="file"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1em;
+.detail-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
-.form-container button {
+.detail-container p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.product-button {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
+    margin: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -36,15 +40,15 @@
     transition: background-color 0.3s ease;
 }
 
-.form-container button:hover {
+.product-button:hover {
     background-color: #45a049;
 }
 
-.form-container button:active {
+.product-button:active {
     background-color: #3e8e41;
 }
 
-.form-container button:focus {
+.product-button:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }

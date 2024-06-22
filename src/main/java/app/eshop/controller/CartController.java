@@ -1,34 +1,63 @@
 package app.eshop.controller;
 
+import app.eshop.dto.CartProductDTO;
+import app.eshop.dto.ServerProductDTO;
+import app.eshop.entity.Product;
 import app.eshop.service.CartService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import app.eshop.service.ProductService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
-@Controller
+@RestController
+@RequestMapping("/api/cart")
 public class CartController {
 
     private final CartService cartService;
+    private final ProductService productService;
 
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, ProductService productService) {
         this.cartService = cartService;
+        this.productService = productService;
     }
 
-    @GetMapping("/cart/add/{id}")
-    public String addToCart(@PathVariable Long id, Model model){
-        cartService.addToCart(id);
-        return "redirect:/cart";
+
+    @PostMapping("add/{id}")
+    public ResponseEntity<Integer> add(@PathVariable Long id) {
+        try {
+            cartService.addToCart(id);
+            Product product = productService.getProductById(id);
+            CartProductDTO cartProductDTO = cartService.getCart().stream().filter(e->e.getProduct().equals(product)).findFirst().orElseThrow();
+
+            Integer quantity = cartProductDTO.getQuantity();
+            return ResponseEntity.ok(quantity);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
     }
-    @GetMapping("/cart/remove/{id}")
-    public String removeFromCart(@PathVariable Long id, Model model){
-        cartService.removeFromCart(id);
-        return "redirect:/cart";
+
+    @PostMapping("remove/{id}")
+    public ResponseEntity<Integer> remove(@PathVariable Long id) {
+        try {
+            cartService.removeFromCart(id);
+            Product product = productService.getProductById(id);
+            CartProductDTO cartProductDTO = cartService.getCart().stream().filter(e->e.getProduct().equals(product)).findFirst().orElseThrow();
+
+            Integer quantity = cartProductDTO.getQuantity();
+            return ResponseEntity.ok(quantity);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
+
     }
-    @GetMapping("/cart")
-    public String showCart(Model model){
-        model.addAttribute("cart", cartService.getCart());
-        return "/cart";
+
+    @GetMapping
+    public List<CartProductDTO> getCart() {
+        List<CartProductDTO> cart = cartService.getCart();
+        return cart;
     }
+
+
 }
