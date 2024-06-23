@@ -1,5 +1,5 @@
 import React from 'react';
-import './SortOptions.css';
+import './sort.css';
 
 const SortOptions = ({ sortBy, setSortBy }) => {
   const handleSortChange = (event) => {
