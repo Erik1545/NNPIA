@@ -14,6 +14,11 @@ public class CustomerOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @Getter
+    @Setter
+    private String username;
+
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)

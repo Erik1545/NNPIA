@@ -8,6 +8,7 @@ import app.eshop.entity.Product;
 import app.eshop.repository.CustomerOrderRepository;
 import app.eshop.repository.CustomerOrder_ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Service
 @SessionScope
+@Transactional
 public class CustomerOrderServiceImpl implements CustomerOrderService{
 
     private final CustomerOrderRepository customerOrderRepository;
@@ -29,15 +31,17 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
     }
 
     @Override
-    public void check() {
+    public void check(String username) {
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setState(CustomerOrderStateEnum.NEW);
+        customerOrder.setUsername(username);
         customerOrderRepository.save(customerOrder);
 
 
         for (CartProductDTO entry : cartService.getCart()) {
             CustomerOrder_Product customerOrder_product = new CustomerOrder_Product();
             customerOrder_product.setCustomerOrder(customerOrder);
+            customerOrder_product.setUsername(username);
             customerOrder_product.setProduct(entry.getProduct());
             customerOrder_product.setQuantity(entry.getQuantity());
             customerOrder_productRepository.save(customerOrder_product);

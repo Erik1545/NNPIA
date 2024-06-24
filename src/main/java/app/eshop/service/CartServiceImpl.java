@@ -42,7 +42,9 @@ public class CartServiceImpl implements CartService {
             if(cartProductDTO.get().getQuantity() == 1){
                 cart.remove(cartProductDTO.get());
             }
-            cartProductDTO.get().setQuantity(cartProductDTO.get().getQuantity()-1);
+            else {
+                cartProductDTO.get().setQuantity(cartProductDTO.get().getQuantity()-1);
+            }
 
         }
 

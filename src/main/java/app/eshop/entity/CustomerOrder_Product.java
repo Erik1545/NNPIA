@@ -13,6 +13,10 @@ public class CustomerOrder_Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
+    @Setter
+    private String username;
+
     @ManyToOne
     @Getter
     @Setter

@@ -1,4 +1,4 @@
-// App.js
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -11,6 +11,7 @@ import Pagination from './pagination';
 import Sort from './sort';
 import Login from './login';
 import { AuthProvider } from './authcontext';
+import ConfirmOrder from './confirm-order'
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -117,7 +118,7 @@ function App() {
             <Route path="/cart" element={<Cart cart={cart} addProduct={addProduct} removeProduct={removeProduct} />} />
             <Route path="/detail/:id" element={<Detail addProduct={addProduct} />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/confirm-order" element={<div>Order Confirmation Page (to be implemented)</div>} />
+            <Route path="/confirm-order" element={<ConfirmOrder />} />
           </Routes>
         </>
       </Router>

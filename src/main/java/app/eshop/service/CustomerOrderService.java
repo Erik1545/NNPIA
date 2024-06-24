@@ -1,5 +1,5 @@
 package app.eshop.service;
 
 public interface CustomerOrderService {
-    void check();
+    void check(String username);
 }

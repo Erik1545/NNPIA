@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -43,10 +44,13 @@ public class CartController {
         try {
             cartService.removeFromCart(id);
             Product product = productService.getProductById(id);
-            CartProductDTO cartProductDTO = cartService.getCart().stream().filter(e->e.getProduct().equals(product)).findFirst().orElseThrow();
-
-            Integer quantity = cartProductDTO.getQuantity();
+            Optional<CartProductDTO> cartProductDTO = cartService.getCart().stream().filter(e->e.getProduct().equals(product)).findFirst();
+            Integer quantity = 0;
+            if(cartProductDTO.isPresent()){
+                quantity = cartProductDTO.get().getQuantity();
+            }
             return ResponseEntity.ok(quantity);
+
         } catch (Exception e) {
             return ResponseEntity.status(404).build();
         }
