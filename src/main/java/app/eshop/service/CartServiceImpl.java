@@ -10,7 +10,6 @@ import org.springframework.web.context.annotation.SessionScope;
 import java.util.*;
 
 @Service
-//@SessionScope
 public class CartServiceImpl implements CartService {
 
     private final List<CartProductDTO> cart;
@@ -40,10 +39,11 @@ public class CartServiceImpl implements CartService {
         Product product = productRepository.findById(id).orElseThrow(NoClassDefFoundError::new);
         Optional<CartProductDTO> cartProductDTO = cart.stream().filter(e->e.getProduct().equals(product)).findFirst();
         if(cartProductDTO.isPresent()){
-            cartProductDTO.get().setQuantity(cartProductDTO.get().getQuantity()-1);
-            if(cartProductDTO.get().getQuantity() == 0){
+            if(cartProductDTO.get().getQuantity() == 1){
                 cart.remove(cartProductDTO.get());
             }
+            cartProductDTO.get().setQuantity(cartProductDTO.get().getQuantity()-1);
+
         }
 
     }

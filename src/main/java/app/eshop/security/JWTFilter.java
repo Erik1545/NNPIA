@@ -33,12 +33,12 @@ public class JWTFilter extends OncePerRequestFilter {
         final String username;
         final String jwtToken;
 
-        if (header == null || !header.startsWith("Bearer")) {
+        if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwtToken = header.substring(5);
+        jwtToken = header.substring(7);
         username = jwtUtilities.extractUsername(jwtToken);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

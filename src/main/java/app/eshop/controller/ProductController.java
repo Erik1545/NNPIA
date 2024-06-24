@@ -21,6 +21,7 @@ public class ProductController {
     @Autowired
     private FileService fileService;
 
+    // TODO upravit @RequestHeader("Authorization") String token
     @GetMapping
     public List<ServerProductDTO> getAllProducts(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "2") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
         return productService.getAllProducts(pageNumber, pageSize, sortBy);

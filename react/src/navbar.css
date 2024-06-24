@@ -1,18 +1,18 @@
 .navbar {
-    background-color: #4CAF50; /* Zelená barva pozadí */
+    background-color: #4CAF50;
     overflow: hidden;
 }
 
 .navbar ul {
-    list-style-type: none; /* Odebrání odrážek */
+    list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Zarovnání položek na střed */
+    justify-content: center;
 }
 
 .navbar li {
-    margin: 0 10px; /* Mezery mezi položkami */
+    margin: 0 10px;
 }
 
 .navbar a {
@@ -21,13 +21,13 @@
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-    transition: background-color 0.3s; /* Plynulá změna barvy pozadí */
+    transition: background-color 0.3s;
 }
 
 .navbar a:hover {
-    background-color: #45a049; /* Změna barvy pozadí při najetí myší */
+    background-color: #45a049;
 }
 
 .navbar a.active {
-    background-color: #4CAF50; /* Barva pozadí aktivní položky */
+    background-color: #4CAF50;
 }
