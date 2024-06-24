@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './product-form.css';
 
 function ProductForm() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const isNewProduct = !id;
   const [product, setProduct] = useState({
     productName: '',
@@ -35,6 +36,7 @@ function ProductForm() {
     formData.append('productName', product.productName);
     formData.append('description', product.description);
     formData.append('price', product.price);
+    formData.append('image', product.image)
 
     const requestOptions = {
       method: isNewProduct ? 'POST' : 'PUT',
@@ -83,6 +85,7 @@ function ProductForm() {
       price: '',
       image: null
     });
+    event.target.reset();
   }
 
   return (

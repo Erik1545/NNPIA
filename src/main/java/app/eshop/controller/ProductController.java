@@ -6,7 +6,9 @@ import app.eshop.entity.Product;
 import app.eshop.service.FileService;
 import app.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -31,13 +33,23 @@ public class ProductController {
         return productService.getProductDTOById(id);
     }
 
-    @PostMapping(consumes = {"multipart/form-data"})
-    public Product createProduct(@RequestBody ProductDTO productDTO) {
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Product createProduct(@RequestParam("image")MultipartFile image, @RequestParam("productName") String productName, @RequestParam("description") String description, @RequestParam("price") Integer price) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setProductName(productName);
+        productDTO.setDescription(description);
+        productDTO.setPrice(price);
+        productDTO.setImage(image);
         return productService.createProduct(productDTO);
     }
 
-    @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    @PutMapping(path="/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Product updateProduct(@PathVariable Long id, @RequestParam("image")MultipartFile image, @RequestParam("productName") String productName, @RequestParam("description") String description, @RequestParam("price") Integer price) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setProductName(productName);
+        productDTO.setDescription(description);
+        productDTO.setPrice(price);
+        productDTO.setImage(image);
         return productService.updateProduct(id, productDTO);
     }
 
