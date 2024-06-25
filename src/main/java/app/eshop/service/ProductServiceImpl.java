@@ -5,13 +5,16 @@ import app.eshop.dto.ProductDTO;
 import app.eshop.dto.ServerProductDTO;
 import app.eshop.entity.Product;
 import app.eshop.repository.ProductRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+
 
 @Service
 public class ProductServiceImpl implements ProductService {

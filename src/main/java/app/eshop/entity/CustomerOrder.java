@@ -1,33 +1,26 @@
 package app.eshop.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
+@Data
 public class CustomerOrder {
     @Id
-    @Getter
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Getter
-    @Setter
     private String username;
 
-    @Getter
-    @Setter
     @Enumerated(EnumType.STRING)
     private CustomerOrderStateEnum state;
 
-
-    @OneToMany(mappedBy = "id")
-    @Getter
-    @Setter
+    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.EAGER)
     private Set<CustomerOrder_Product> customerOrderProducts;
 
 }

@@ -2,33 +2,27 @@ package app.eshop.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@Getter
+@Setter
 public class CustomerOrder_Product {
+
     @Id
-    @Getter
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
-    @Setter
     private String username;
 
     @ManyToOne
-    @Getter
-    @Setter
     private CustomerOrder customerOrder;
 
-
     @ManyToOne
-    @Getter
-    @Setter
     private Product product;
 
-    @Getter
-    @Setter
     private Integer quantity;
 }

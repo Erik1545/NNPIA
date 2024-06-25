@@ -1,5 +1,6 @@
 package app.eshop.dto;
 
+import app.eshop.validation.ValidImage;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,14 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ProductDTO {
 
-    @NotNull
     private String productName;
 
-    @Size(max = 50)
     private String description;
 
     private MultipartFile image;
 
-    @Min(1)
     private Integer price;
 }

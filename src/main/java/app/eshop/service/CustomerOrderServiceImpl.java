@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -49,5 +50,10 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
         }
         cartService.getCart().clear();
 
+    }
+
+    @Override
+    public List<CustomerOrder> getCustomerOrders(String username){
+        return customerOrderRepository.findAllByUsername(username);
     }
 }
