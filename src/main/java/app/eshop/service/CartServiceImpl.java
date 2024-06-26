@@ -1,12 +1,8 @@
 package app.eshop.service;
-
-
 import app.eshop.dto.CartProductDTO;
 import app.eshop.entity.Product;
 import app.eshop.repository.ProductRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
-
 import java.util.*;
 
 @Service

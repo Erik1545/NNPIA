@@ -1,5 +1,4 @@
 package app.eshop.dto;
-
 import app.eshop.entity.Product;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import lombok.AllArgsConstructor;

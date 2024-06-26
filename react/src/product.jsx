@@ -7,7 +7,13 @@ function Product({product}) {
   return (
     <div className="product-container" style={{ margin: "10px", padding: "25px" }}>
       <h2 className="product-name">{product.productName}</h2>
-      <img src={`http://localhost:8080/images/${product.image}`} alt={product.productName} className="product-image" />
+      <div className="product-image-container">
+              <img
+                src={`http://localhost:8080/images/${product.image}`}
+                alt={product.productName}
+                className="product-image"
+              />
+            </div>
       <p className="product-price">{product.price} Kč</p>
       <Link to={`/detail/${product.id}`}>
         <button className="product-button">Detail</button>

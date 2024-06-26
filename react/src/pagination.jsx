@@ -8,19 +8,20 @@ const Pagination = ({ prevPage, nextPage, page, handlePageSizeChange, hasMorePro
     <div className="pagination-container">
       <div className="pagination-controls">
         <button onClick={prevPage} disabled={page === 0}>
-          &lt; Previous
+          &lt; Předchozí
         </button>
-        <p className="pagination-page-info">Page {page + 1}</p>
+        <p className="pagination-page-info">Strana {page + 1}</p>
         <button onClick={nextPage} disabled={!hasMoreProducts}>
-          Next &gt;
+          Další &gt;
         </button>
       </div>
       <div className="pagination-page-size">
         {pageSizeOptions.map(size => (
           <button key={size} onClick={() => handlePageSizeChange(size)}>
-            {size} per page
+            {size}
           </button>
         ))}
+        <span>&nbsp;&nbsp;&nbsp;produktů na stránku</span>
       </div>
     </div>
   );

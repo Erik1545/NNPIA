@@ -1,6 +1,5 @@
 package app.eshop.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,9 +17,8 @@ import java.nio.file.Paths;
 @EnableWebMvc
 public class AllConfiguration implements WebMvcConfigurer {
 
-
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         Path imagesDir = Paths.get("images").toAbsolutePath();
 
@@ -28,10 +26,12 @@ public class AllConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/images/**")
                 .addResourceLocations(imagesDirUri);
     }
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowCredentials(true).allowedOriginPatterns("*").allowedHeaders("*").allowedMethods("*");
     }
+
     @Bean
     public StandardServletMultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();

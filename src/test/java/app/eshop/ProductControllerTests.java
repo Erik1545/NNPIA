@@ -1,11 +1,8 @@
 package app.eshop;
-
-
 import app.eshop.dto.ProductDTO;
 import app.eshop.entity.Product;
 import app.eshop.repository.ProductRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.validation.ConstraintViolationException;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
@@ -17,9 +14,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -34,7 +29,6 @@ public class ProductControllerTests {
 
     @Autowired
     private ProductRepository productRepository;
-
 
     @Test
     void createNewProduct() throws Exception {
@@ -76,7 +70,6 @@ public class ProductControllerTests {
         }
     }
 
-
     @Test
     void getProductById() throws Exception{
         Product product = new Product();
@@ -96,5 +89,4 @@ public class ProductControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price", Is.is(product.getPrice())))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
     }
-
 }

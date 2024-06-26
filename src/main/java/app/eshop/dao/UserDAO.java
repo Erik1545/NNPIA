@@ -19,8 +19,6 @@ public class UserDAO {
 
     private final PasswordEncoder passwordEncoder;
 
-
-
     private List<UserDetails> eshopUsers() {
         return Arrays.asList(
                 new User("Erikos",

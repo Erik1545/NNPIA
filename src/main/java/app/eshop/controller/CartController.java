@@ -1,22 +1,21 @@
 package app.eshop.controller;
-
 import app.eshop.dto.CartProductDTO;
-import app.eshop.dto.ServerProductDTO;
 import app.eshop.entity.Product;
 import app.eshop.service.CartService;
 import app.eshop.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
 
+    @Autowired
     private final CartService cartService;
+    @Autowired
     private final ProductService productService;
 
     public CartController(CartService cartService, ProductService productService) {
@@ -59,8 +58,7 @@ public class CartController {
 
     @GetMapping
     public List<CartProductDTO> getCart() {
-        List<CartProductDTO> cart = cartService.getCart();
-        return cart;
+        return cartService.getCart();
     }
 
 

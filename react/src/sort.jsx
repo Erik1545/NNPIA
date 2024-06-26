@@ -8,8 +8,8 @@ const SortOptions = ({ sortBy, setSortBy }) => {
 
   return (
     <div className="sort-options">
-      <label htmlFor="sort-select">Řadit podle :</label>
-      <select id="sort-select" value={sortBy} onChange={handleSortChange}>
+      <label className="sort-label" htmlFor="sort-select">Řadit podle :</label>
+      <select id="sort-select" className="sort-select" value={sortBy} onChange={handleSortChange}>
         <option value="id">ID produktu</option>
         <option value="productName">Nazev produktu</option>
         <option value="price">Cena produktu</option>

@@ -1,9 +1,7 @@
 package app.eshop.service;
-
 import app.eshop.dto.ProductDTO;
 import app.eshop.dto.ServerProductDTO;
 import app.eshop.entity.Product;
-
 import java.util.List;
 
 public interface ProductService {

@@ -1,12 +1,7 @@
 package app.eshop.controller;
-
-
-import app.eshop.entity.CustomerOrder;
 import app.eshop.security.JWTUtilities;
 import app.eshop.service.CustomerOrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerOrderController {
 
     private final CustomerOrderService customerOrderService;
-    private JWTUtilities jwtUtilities;
+    private final JWTUtilities jwtUtilities;
 
     public CustomerOrderController(CustomerOrderService customerOrderService, JWTUtilities jwtUtilities) {
         this.customerOrderService = customerOrderService;
@@ -32,5 +27,4 @@ public class CustomerOrderController {
             return ResponseEntity.badRequest().build();
         }
     }
-
 }

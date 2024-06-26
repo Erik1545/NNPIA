@@ -16,7 +16,7 @@ import ConfirmOrder from './confirm-order'
 function App() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(2);
+  const [pageSize, setPageSize] = useState(4);
   const [cart, setCart] = useState([]);
   const [hasMoreProducts, setHasMoreProducts] = useState(true);
   const [sortBy, setSortBy] = useState("id");
@@ -99,7 +99,7 @@ function App() {
           <Routes>
             <Route path="/" element={
               <>
-                <h1>Produkty v eshopu</h1>
+                <h1>3D TISK – PRODUKTY</h1>
                 <Sort sortBy={sortBy} setSortBy={setSortBy} />
                 <div style={{ display: "flex", flexWrap: "wrap" }}>
                   {products.map(item => <Product key={item.id} product={item} />)}

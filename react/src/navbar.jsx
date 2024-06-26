@@ -1,4 +1,3 @@
-// navbar.js
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './navbar.css';
@@ -18,13 +17,13 @@ const NavBar = () => {
     <nav className="navbar">
       <ul className="navbar-list">
         <li className="navbar-item">
-          <Link to="/" className="navbar-link">Home</Link>
+          <Link to="/" className="navbar-link">Domů</Link>
         </li>
         <li className="navbar-item">
-          <Link to="/productform" className="navbar-link">ProductForm</Link>
+          <Link to="/productform" className="navbar-link">Produktový Formulář</Link>
         </li>
         <li className="navbar-item">
-          <Link to="/cart" className="navbar-link">Cart</Link>
+          <Link to="/cart" className="navbar-link">Košík</Link>
         </li>
         <li className="navbar-item navbar-item-right">
           {isAuthenticated ? (

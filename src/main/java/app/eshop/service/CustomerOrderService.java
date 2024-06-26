@@ -1,7 +1,5 @@
 package app.eshop.service;
-
 import app.eshop.entity.CustomerOrder;
-
 import java.util.List;
 
 public interface CustomerOrderService {

@@ -1,17 +1,14 @@
 package app.eshop.service;
-
 import app.eshop.controller.NotFoundException;
 import app.eshop.dto.ProductDTO;
 import app.eshop.dto.ServerProductDTO;
 import app.eshop.entity.Product;
 import app.eshop.repository.ProductRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -50,12 +47,10 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setProductName(productDTO.getProductName());
         newProduct.setDescription(productDTO.getDescription());
         newProduct.setPrice(productDTO.getPrice());
-
         if (productDTO.getImage() != null) {
             String imageName = fileService.upload(productDTO.getImage());
             newProduct.setImagePath(imageName);
         }
-
         return productRepository.save(newProduct);
     }
 
@@ -66,12 +61,10 @@ public class ProductServiceImpl implements ProductService {
                     existingProduct.setProductName(productDTO.getProductName());
                     existingProduct.setDescription(productDTO.getDescription());
                     existingProduct.setPrice(productDTO.getPrice());
-
                     if (productDTO.getImage() != null) {
                         String imageName = fileService.upload(productDTO.getImage());
                         existingProduct.setImagePath(imageName);
                     }
-
                     return productRepository.save(existingProduct);
                 }).orElseThrow(() -> new NotFoundException(String.format("Product %s not found", id)));
     }

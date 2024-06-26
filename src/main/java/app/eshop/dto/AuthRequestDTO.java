@@ -1,6 +1,4 @@
 package app.eshop.dto;
-
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,5 +1,4 @@
 package app.eshop.security;
-
 import app.eshop.dao.UserDAO;
 import app.eshop.dto.AuthRequestDTO;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,5 +30,4 @@ public class AuthenticationController {
         }
         return ResponseEntity.status(400).body("Nastala chyba");
     }
-
 }

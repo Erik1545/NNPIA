@@ -1,42 +1,29 @@
 package app.eshop.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@Getter
+@Setter
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
     private Long id;
 
-    @Getter
-    @Setter
     private String productName;
 
-    @Getter
-    @Setter
     @Column(columnDefinition = "text")
     private String description;
 
-    @Getter
-    @Setter
     private Integer price;
 
-    @Getter
-    @Setter
     private String imagePath;
 
     @OneToMany(mappedBy = "id")
-    @Getter
-    @Setter
     private Set<CustomerOrder_Product> productInCustomerOrders;
 
     @Override

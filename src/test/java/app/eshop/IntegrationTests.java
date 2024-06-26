@@ -1,20 +1,13 @@
 package app.eshop;
-
-
 import app.eshop.entity.CustomerOrder;
 import app.eshop.entity.CustomerOrder_Product;
-import app.eshop.entity.Product;
 import app.eshop.service.CartService;
 import app.eshop.service.CustomerOrderService;
-import app.eshop.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = WebApplication.class)
@@ -25,7 +18,6 @@ public class IntegrationTests {
 
     @Autowired
     private CustomerOrderService customerOrderService;
-
 
     @Test
     void customerOrderCreation(){
