@@ -1,8 +1,8 @@
 spring:
   application:
-    name:eshop
+    name:SemA
   datasource:
-    url: jdbc:postgresql://localhost:5432/eshop
+    url: jdbc:postgresql://localhost:5432/SemADB
     username: user
     password: myuserpassword
     driver-class-name: org.postgresql.Driver
@@ -15,4 +15,16 @@ spring:
   servlet:
     multipart:
       enabled: true
+
+  mail:
+    host: localhost
+    port: 1025
+    username: ""
+    password: ""
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
 

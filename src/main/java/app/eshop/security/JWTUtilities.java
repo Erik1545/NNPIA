@@ -43,12 +43,27 @@ public class JWTUtilities {
 
     public String generateToken(UserDetails userDetails, Map<String, Object> claims){return createToken(claims, userDetails);}
 
+
+    public String generateResetToken(UserDetails userDetails){
+        Map<String, Object> claims = new HashMap<>();
+        return createResetToken(claims, userDetails);
+    }
+
     private String createToken(Map<String, Object> claims, UserDetails userDetails){
         return Jwts.builder().claims(claims)
                 .subject(userDetails.getUsername())
                 .claim("authorities", userDetails.getAuthorities())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24)))
+                .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtKey))).compact();
+    }
+
+    private String createResetToken(Map<String, Object> claims, UserDetails userDetails){
+        return Jwts.builder().claims(claims)
+                .subject(userDetails.getUsername())
+                .claim("authorities", userDetails.getAuthorities())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)))
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtKey))).compact();
     }
 

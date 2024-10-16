@@ -1,23 +1,19 @@
 version: "3.9"
 services:
   db:
-    container_name: eshopDB
+    container_name: SemADB
     image: postgres
     restart: always
     environment:
-      POSTGRES_DB: eshop
+      POSTGRES_DB: SemADB
       POSTGRES_USER: user
       POSTGRES_PASSWORD: myuserpassword
     ports:
       - "5432:5432"
 
-  react:
-    container_name: eshopReact
-    image: node
-    working_dir: /react
-    volumes:
-      - ./react:/react
+  mailhog:
+    image: mailhog/mailhog
+    container_name: SemAMail
     ports:
-      - "5173:5173"
-    command:
-      sh -c "npm install && npm install react-router-dom && npm run dev"
+      - "1025:1025"   # SMTP port
+      - "8025:8025"   # Web interface port

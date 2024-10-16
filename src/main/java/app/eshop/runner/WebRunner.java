@@ -1,15 +1,16 @@
 package app.eshop.runner;
-import app.eshop.entity.CustomerOrder;
-import app.eshop.entity.CustomerOrderStateEnum;
-import app.eshop.entity.CustomerOrder_Product;
-import app.eshop.entity.Product;
-import app.eshop.repository.CustomerOrderRepository;
-import app.eshop.repository.CustomerOrder_ProductRepository;
-import app.eshop.repository.ProductRepository;
+import app.eshop.entity.MyUser;
+import app.eshop.entity.Sensor;
+import app.eshop.entity.Device;
+import app.eshop.repository.SensorRepository;
+import app.eshop.repository.DeviceRepository;
+import app.eshop.repository.UserRepository;
+import app.eshop.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -18,128 +19,63 @@ import org.springframework.stereotype.Component;
 public class WebRunner implements ApplicationRunner {
 
     @Autowired
-    private final ProductRepository productRepository;
+    private final DeviceRepository deviceRepository;
 
     @Autowired
-    private final CustomerOrderRepository customerOrderRepository;
+    private final SensorRepository sensorRepository;
 
     @Autowired
-    private final CustomerOrder_ProductRepository customerOrderProductRepository;
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        Product product1 = new Product();
-        product1.setProductName("Iron Man");
-        product1.setImagePath("iron-man.png");
-        product1.setDescription("Doba tisku: Něco málo přes 4 hodiny\n" +
-                "Nastavení tisku: Střední rozlišení/střední rychlost\n" +
-                "Tiskárna: Mamba 3D\n" +
-                "Měřítko objektu: X Změněno na 1,3\n" +
-                "Výška objektu: 10,5 cm vč. základna\n" +
-                "Vytištěno pomocí: PLA_1.75\n" +
-                "Celkový počet vrstev: 683\n" +
-                "Celkem řádků: 172035\n" +
-                "Potřebné vlákno: 6484 mm\n" +
-                "Chyby: Mírná chyba na pravé ruce (pouze prsty)");
-        product1.setPrice(56);
+        MyUser myUser1 = new MyUser();
+        myUser1.setUsername("Erikos");
+        myUser1.setEmail("kaegyqooylurwfugnd@poplk.com");
+        myUser1.setPassword(passwordEncoder.encode("password"));
 
-        Product product2 = new Product();
-        product2.setProductName("Spiderman");
-        product2.setImagePath("spiderman.webp");
-        product2.setDescription("Nastavení tisku\n" +
-                "Značka tiskárny:\n" +
-                "Prusa\n" +
-                "\n" +
-                "tiskárna:\n" +
-                "i3 MK2 MMU\n" +
-                "\n" +
-                "Rafty:\n" +
-                "Ano\n" +
-                "Podporuje:\n" +
-                "Ano\n" +
-                "Rozlišení:\n" +
-                "1.5\n" +
-                "Výplň:\n" +
-                "20\n");
-        product2.setPrice(55);
+        MyUser myUser2 = new MyUser();
+        myUser2.setUsername("Eva");
+        myUser2.setEmail("kam23214@dcobe.com");
+        myUser2.setPassword(passwordEncoder.encode("heslo"));
 
-        Product product3 = new Product();
-        product3.setProductName("Black Widow");
-        product3.setImagePath("black-widow.webp");
-        product3.setDescription("tiskárna:\n" +
-                "Jaycar TL4100\n" +
-                "\n" +
-                "Rafty:\n" +
-                "Ano\n" +
-                "Podporuje:\n" +
-                "Ano\n" +
-                "Rozlišení:\n" +
-                "0,1 mm\n" +
-                "Výplň:\n" +
-                "5 %\n" +
-                "Poznámky:\n" +
-                "Vytiskl jsem ji vzhůru nohama, abych minimalizoval oporu na rukou a nohou.\n" +
-                "\n" +
-                "Rád bych šel větší, ale ostatní figurky v sadě byly vysoké asi 80 mm, takže jsem ji nastavil.");
-        product3.setPrice(24);
+        MyUser savedUser1 = userRepository.save(myUser1);
+        MyUser savedUser2 = userRepository.save(myUser2);
 
-        Product product4 = new Product();
-        product4.setProductName("Kapitan Amerika");
-        product4.setImagePath("kapitan.png");
-        product4.setDescription("Značka tiskárny:\n" +
-                "Wanhao\n" +
-                "\n" +
-                "tiskárna:\n" +
-                "Wanhao Duplicator i3 V2\n" +
-                "\n" +
-                "Rafty:\n" +
-                "Na tom nezáleží\n" +
-                "Podporuje:\n" +
-                "Ano\n" +
-                "Rozlišení:\n" +
-                "0,2 nebo 0,1\n" +
-                "Výplň:\n" +
-                "30 %\n" +
-                "Poznámky:\n" +
-                "Tento model můžete tisknout v rozlišení 0,2 nebo 0,1 mm s tryskou 0,4 až 0,2 mm.");
-        product4.setPrice(57);
+        Device device1 = new Device();
+        device1.setUserId(savedUser1.getId());
+        device1.setDeviceName("Iron Man");
+        device1.setDescription("Nejlepsi");
 
-        Product product5 = new Product();
-        product5.setProductName("Groot");
-        product5.setImagePath("groot.png");
-        product5.setDescription("Značka tiskárny:\n" +
-                "MakerBot\n" +
-                "\n" +
-                "tiskárna:\n" +
-                "Replikátor MakerBot\n" +
-                "\n" +
-                "Rafty:\n" +
-                "Na tom nezáleží\n" +
-                "Podporuje:\n" +
-                "Ne\n" +
-                "Rozlišení:\n" +
-                "Nezáleží na tom.\n" +
-                "Výplň:\n" +
-                "20 %\n" +
-                "Poznámky:\n" +
-                "Někteří uživatelé hlásili problémy s použitím méně než 20% výplně. 20 % tiskne v pořádku.");
-        product5.setPrice(13);
+        Device device2 = new Device();
+        device2.setUserId(savedUser2.getId());
+        device2.setDeviceName("Spiderman");
+        device2.setDescription("Trapák se slipama");
 
-        productRepository.save(product1);
-        productRepository.save(product2);
-        productRepository.save(product3);
-        productRepository.save(product4);
-        productRepository.save(product5);
+        Device savedDevice1 = deviceRepository.save(device1);
+        Device savedDevice2 = deviceRepository.save(device2);
 
-        CustomerOrder customerOrder = new CustomerOrder();
-        customerOrder.setState(CustomerOrderStateEnum.NEW);
-        customerOrderRepository.save(customerOrder);
+        Sensor sensor1 = new Sensor();
+        sensor1.setDeviceId(savedDevice1.getId());
+        sensor1.setSensorName("Rakety");
 
-        CustomerOrder_Product customerOrder_product = new CustomerOrder_Product();
-        customerOrder_product.setProduct(product1);
-        customerOrder_product.setCustomerOrder(customerOrder);
-        customerOrder_product.setQuantity(5);
-        customerOrderProductRepository.save(customerOrder_product);
+        Sensor sensor2 = new Sensor();
+        sensor2.setDeviceId(savedDevice1.getId());
+        sensor2.setSensorName("Lasery");
+
+        Sensor sensor3 = new Sensor();
+        sensor3.setDeviceId(savedDevice2.getId());
+        sensor3.setSensorName("Pavučiny");
+
+        sensorRepository.save(sensor1);
+        sensorRepository.save(sensor2);
+        sensorRepository.save(sensor3);
+
+
     }
 }
